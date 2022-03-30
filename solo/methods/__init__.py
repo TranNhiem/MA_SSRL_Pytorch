@@ -30,7 +30,6 @@ METHODS = {
     "byol": BYOL,
     "massl":MASSL,
     "massl_edit":MASSL_edit,
-
 }
 __all__ = [
 
