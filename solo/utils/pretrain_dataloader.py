@@ -32,7 +32,7 @@ from torchvision import transforms as T
 import PIL
 import numpy as np
 
-from torchvision.datasets import STL10, ImageFolder
+from torchvision.datasets import  ImageFolder
 
 # pluggin multiple DA support
 from torchvision.transforms import autoaugment as auto_aug
@@ -255,136 +255,6 @@ class BaseTransform:
         return str(self.transform)
 
 
-class CifarTransform(BaseTransform):
-    def __init__(
-        self,
-        cifar: str,
-        brightness: float,
-        contrast: float,
-        saturation: float,
-        hue: float,
-        color_jitter_prob: float = 0.8,
-        gray_scale_prob: float = 0.2,
-        horizontal_flip_prob: float = 0.5,
-        gaussian_prob: float = 0.5,
-        solarization_prob: float = 0.0,
-        min_scale: float = 0.08,
-        max_scale: float = 1.0,
-        crop_size: int = 32,
-    ):
-        """Class that applies Cifar10/Cifar100 transformations.
-
-        Args:
-            cifar (str): type of cifar, either cifar10 or cifar100.
-            brightness (float): sampled uniformly in [max(0, 1 - brightness), 1 + brightness].
-            contrast (float): sampled uniformly in [max(0, 1 - contrast), 1 + contrast].
-            saturation (float): sampled uniformly in [max(0, 1 - saturation), 1 + saturation].
-            hue (float): sampled uniformly in [-hue, hue].
-            color_jitter_prob (float, optional): probability of applying color jitter.
-                Defaults to 0.8.
-            gray_scale_prob (float, optional): probability of converting to gray scale.
-                Defaults to 0.2.
-            horizontal_flip_prob (float, optional): probability of flipping horizontally.
-                Defaults to 0.5.
-            gaussian_prob (float, optional): probability of applying gaussian blur.
-                Defaults to 0.0.
-            solarization_prob (float, optional): probability of applying solarization.
-                Defaults to 0.0.
-            min_scale (float, optional): minimum scale of the crops. Defaults to 0.08.
-            max_scale (float, optional): maximum scale of the crops. Defaults to 1.0.
-            crop_size (int, optional): size of the crop. Defaults to 32.
-        """
-
-        super().__init__()
-
-        if cifar == "cifar10":
-            mean = (0.4914, 0.4822, 0.4465)
-            std = (0.2470, 0.2435, 0.2616)
-        else:
-            mean = (0.5071, 0.4865, 0.4409)
-            std = (0.2673, 0.2564, 0.2762)
-
-        self.transform = transforms.Compose(
-            [
-                transforms.RandomResizedCrop(
-                    (crop_size, crop_size),
-                    scale=(min_scale, max_scale),
-                    interpolation=transforms.InterpolationMode.BICUBIC,
-                ),
-                transforms.RandomApply(
-                    [transforms.ColorJitter(brightness, contrast, saturation, hue)],
-                    p=color_jitter_prob,
-                ),
-                transforms.RandomGrayscale(p=gray_scale_prob),
-                transforms.RandomApply([GaussianBlur()], p=gaussian_prob),
-                transforms.RandomApply([Solarization()], p=solarization_prob),
-                transforms.RandomHorizontalFlip(p=horizontal_flip_prob),
-                transforms.ToTensor(),
-                transforms.Normalize(mean, std),
-            ]
-        )
-
-
-class STLTransform(BaseTransform):
-    def __init__(
-        self,
-        brightness: float,
-        contrast: float,
-        saturation: float,
-        hue: float,
-        color_jitter_prob: float = 0.8,
-        gray_scale_prob: float = 0.2,
-        horizontal_flip_prob: float = 0.5,
-        gaussian_prob: float = 0.5,
-        solarization_prob: float = 0.0,
-        min_scale: float = 0.08,
-        max_scale: float = 1.0,
-        crop_size: int = 96,
-    ):
-        """Class that applies STL10 transformations.
-
-        Args:
-            brightness (float): sampled uniformly in [max(0, 1 - brightness), 1 + brightness].
-            contrast (float): sampled uniformly in [max(0, 1 - contrast), 1 + contrast].
-            saturation (float): sampled uniformly in [max(0, 1 - saturation), 1 + saturation].
-            hue (float): sampled uniformly in [-hue, hue].
-            color_jitter_prob (float, optional): probability of applying color jitter.
-                Defaults to 0.8.
-            gray_scale_prob (float, optional): probability of converting to gray scale.
-                Defaults to 0.2.
-            horizontal_flip_prob (float, optional): probability of flipping horizontally.
-                Defaults to 0.5.
-            gaussian_prob (float, optional): probability of applying gaussian blur.
-                Defaults to 0.0.
-            solarization_prob (float, optional): probability of applying solarization.
-                Defaults to 0.0.
-            min_scale (float, optional): minimum scale of the crops. Defaults to 0.08.
-            max_scale (float, optional): maximum scale of the crops. Defaults to 1.0.
-            crop_size (int, optional): size of the crop. Defaults to 96.
-        """
-
-        super().__init__()
-        self.transform = transforms.Compose(
-            [
-                transforms.RandomResizedCrop(
-                    (crop_size, crop_size),
-                    scale=(min_scale, max_scale),
-                    interpolation=transforms.InterpolationMode.BICUBIC,
-                ),
-                transforms.RandomApply(
-                    [transforms.ColorJitter(brightness, contrast, saturation, hue)],
-                    p=color_jitter_prob,
-                ),
-                transforms.RandomGrayscale(p=gray_scale_prob),
-                transforms.RandomApply([GaussianBlur()], p=gaussian_prob),
-                transforms.RandomApply([Solarization()], p=solarization_prob),
-                transforms.RandomHorizontalFlip(p=horizontal_flip_prob),
-                transforms.ToTensor(),
-                transforms.Normalize((0.4914, 0.4823, 0.4466), (0.247, 0.243, 0.261)),
-            ]
-        )
-
-
 class ImagenetTransform(BaseTransform):
     def __init__(
         self,
@@ -582,11 +452,7 @@ def prepare_transform(dataset: str, trfs_kwargs, da_kwargs=None) -> Any:
         Any: a transformation for a specific dataset.
     """
 
-    if dataset in ["cifar10", "cifar100"]:
-        return CifarTransform(cifar=dataset, **trfs_kwargs)
-    elif dataset == "stl10":
-        return STLTransform(**trfs_kwargs)
-    elif dataset in ["imagenet", "imagenet100"]:
+    if dataset in ["imagenet", "imagenet100"]:
         return ImagenetTransform(**trfs_kwargs)
     elif dataset == "custom":
         return CustomTransform(**trfs_kwargs)
@@ -618,6 +484,7 @@ def prepare_transform(dataset: str, trfs_kwargs, da_kwargs=None) -> Any:
         
         #  ret [simclr_da, rand_da, auto_da, fast_da]  4 views trfs
         return [CustomTransform(**trfs_kwargs), rand_da, auto_da, fast_da ]#fast_da
+    
     elif dataset == "mulda_v1":
         """
         mulda_v1 --> is the version removing Random Crop. 
