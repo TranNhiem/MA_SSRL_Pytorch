@@ -22,9 +22,9 @@ import types
 
 from nvidia.dali.plugin.base_iterator import LastBatchPolicy
 from pytorch_lightning import Trainer
-from solo.methods import BarlowTwins
-from solo.methods.dali import ClassificationABC, NormalPipeline, PretrainABC, Wrapper
-from solo.methods.linear import LinearModel
+from MA_SSRL.methods import BarlowTwins
+from MA_SSRL.methods.dali import ClassificationABC, NormalPipeline, PretrainABC, Wrapper
+from MA_SSRL.methods.linear import LinearModel
 from torch import nn
 from torchvision.models.resnet import resnet18
 

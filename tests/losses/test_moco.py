@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import torch
-from solo.losses import moco_loss_func
+from MA_SSRL.losses import moco_loss_func
 
 
 def test_moco_loss():

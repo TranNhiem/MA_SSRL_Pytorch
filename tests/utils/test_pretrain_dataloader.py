@@ -19,7 +19,7 @@
 
 import numpy as np
 from PIL import Image
-from solo.utils.pretrain_dataloader import (
+from MA_SSRL.utils.pretrain_dataloader import (
     prepare_dataloader,
     prepare_datasets,
     prepare_n_crop_transform,

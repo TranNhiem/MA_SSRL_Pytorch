@@ -9,8 +9,8 @@ import os
 from downstream.linear_classification.configs.extra_scrips_download_data.download_scripts.create_rparis_dataset import (
     create_revisited_oxford_paris_dataset,
 )
-from solo.utils.download import download_and_extract_archive, download_url
-from solo.utils.io import cleanup_dir
+from MA_SSRL.utils.download import download_and_extract_archive, download_url
+from MA_SSRL.utils.io import cleanup_dir
 
 
 def get_argument_parser():

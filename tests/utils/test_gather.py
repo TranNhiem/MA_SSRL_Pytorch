@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import torch
-from solo.utils.misc import gather
+from MA_SSRL.utils.misc import gather
 
 
 def test_gather_layer():

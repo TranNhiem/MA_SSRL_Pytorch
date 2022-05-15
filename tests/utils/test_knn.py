@@ -19,7 +19,7 @@
 
 import torch
 import torch.nn.functional as F
-from solo.utils.knn import WeightedKNNClassifier
+from MA_SSRL.utils.knn import WeightedKNNClassifier
 
 
 def test_knn():

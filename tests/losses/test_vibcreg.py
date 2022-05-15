@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import torch
-from solo.losses import vibcreg_loss_func
+from MA_SSRL.losses import vibcreg_loss_func
 
 
 def test_vibcreg_loss_func():

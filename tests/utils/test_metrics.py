@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import torch
-from solo.utils.metrics import accuracy_at_k
+from MA_SSRL.utils.metrics import accuracy_at_k
 
 
 def test_accuracy_at_k():

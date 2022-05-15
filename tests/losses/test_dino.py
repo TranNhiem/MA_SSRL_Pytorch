@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import torch
-from solo.losses import DINOLoss
+from MA_SSRL.losses import DINOLoss
 
 
 def test_dino_loss():

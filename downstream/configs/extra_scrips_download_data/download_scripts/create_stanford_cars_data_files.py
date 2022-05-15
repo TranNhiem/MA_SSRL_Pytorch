@@ -10,8 +10,8 @@ import shutil
 from scipy import io
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from solo.utils.download import download_and_extract_archive, download_url
-from solo.utils.io import cleanup_dir
+from MA_SSRL.utils.download import download_and_extract_archive, download_url
+from MA_SSRL.utils.io import cleanup_dir
 
 
 def get_argument_parser():
