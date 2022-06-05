@@ -36,7 +36,7 @@ This repo contains the source code for the `MASSRL`, our tool that makes the imp
     - [Hyperamters Setting](#Important-Hyperparameter-Setting)
     - [Choosing # augmentation Strategies](#Number-Augmentation-Strategies)
     - [Single or Multi GPUs](#Single-Multi-GPUS)
-  - [Examples](#examples)
+  - [Pretrained model](#model-weights)
   - [Downstream Tasks](#running-tests)
      - [Image Classification Tasks](#Natural-Image-Classification)
      - [Other Vision Tasks](#Object-Detection-Segmentation)
@@ -88,8 +88,24 @@ There are extra experiments on K-NN evaluation in `bash_files/knn/` and feature 
 **NOTE:** Files try to be up-to-date and follow as closely as possible the recommended parameters of each paper, but check them before running.
 
 
-
 For example, the `mup.coord_check.example_plot_coord_check` function is implemented this way for toy MLP and CNN models.
+
+### Dataset 
+you can Configure your own dataset here
+
+## Pre-trained model 
+
+**Note:** hyperparameters may not be the best, we will be re-running the methods with lower performance eventually.
+### ImageNet 1000 Classes Self-supervised pre-training 
+
+**Note:** hyperparameters may not be the best, we will be re-running the methods with lower performance eventually.
+
+| Method       | Backbone | Epochs | MLP Dim | Acc@1 | Acc@5 | Checkpoint |
+|--------------|:--------:|:------:|:----:|:--------------:|:--------------:|:----------:|
+| MASSRL  | ResNet50 |  300  |  512 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
+| MASSRL  | ResNet50 |  300  |  256 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
+| MASSRL  | ResNet50 |  600  |  256 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
+| BYOL         | ResNet50 |  300  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
 
 
 #### Tips for Coord Check
@@ -124,7 +140,6 @@ To run tests, do
 ```bash
 python -m mup.test
 ```
-
 
 ## The Basic Math
 
