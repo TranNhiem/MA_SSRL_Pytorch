@@ -61,13 +61,6 @@ pip or conda installs these dependents in your local machine
 * scipy
 * timm
 
-**Optional**:
-* nvidia-dali
-* matplotlib
-* seaborn
-* pandas
-* umap-learn
-
 ## Visualization `MASSRL` Multi-Augmentation Strategies
 
 <a target="[_parent](https://colab.research.google.com/drive/1fquGOr_psJfDXxOmdFVkfrbedGfi1t-X?usp=sharing)"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
@@ -81,22 +74,35 @@ If you want to see this happen, please upvote [this Repo issue]
 
 For pretraining the backbone, follow one of the many bash files in `bash_files/pretrain/`.
 
-After that, for offline linear evaluation, follow the examples in `bash_files/linear`.
-
-There are extra experiments on K-NN evaluation in `bash_files/knn/` and feature visualization with UMAP in `bash_files/umap/`.
-
 **NOTE:** Files try to be up-to-date and follow as closely as possible the recommended parameters of each paper, but check them before running.
 
-
-For example, the `mup.coord_check.example_plot_coord_check` function is implemented this way for toy MLP and CNN models.
-
 ### Dataset 
-you can Configure your own dataset here
+**Note:** Public ImageNet dataset is implement in this work, if you have your own dataset you can change the path corresponding. 
+
+#### Downloading ImageNet-1K dataset (https://www.image-net.org/download.php).
+
+#### Using your own dataset 
+Consider dataset folder structure setup for Pytorch `ImageFolder` and `DataLoader`principle
+#### Changing dataset path(your path) in pretraining Flags: 
+
+`bash_files/pretrain/MASSL.sh`
+    `
+    --train_dir ILSVRC2012/train \
+    --val_dir ILSVRC2012/val \
+    `
+
+### Hyperparameter Setting 
+
+### Number Augmentation Strategies Implement
+
+### Training Single or Multiple GPUs
+
 
 ## Pre-trained model 
 
-**Note:** hyperparameters may not be the best, we will be re-running the methods with lower performance eventually.
-### ImageNet 1000 Classes Self-supervised pre-training 
+**Note:** hyperparameters may not be the best, if using your own datasets you can consider batch size and learning rate for your training.
+
+### ImageNet 1000K Self-supervised pre-training 
 
 **Note:** hyperparameters may not be the best, we will be re-running the methods with lower performance eventually.
 
@@ -106,12 +112,14 @@ you can Configure your own dataset here
 | MASSRL  | ResNet50 |  300  |  256 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
 | MASSRL  | ResNet50 |  600  |  256 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
 | BYOL         | ResNet50 |  300  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
+| SimCRL         | ResNet50 |  200  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
 
+#### Tips for pre-training 
 
-#### Tips for Coord Check
+- Use a large init learning rate {0.3, 0.4} for `short training epochs`. This would archieve better performance, which could be hidden by the initialization if the learning rate is too small.Use a small init learning rate for Longer training epochs should use value around 0.2.
 
-- Use a large learning rate (larger than you'd use for actual training). This would emphasize any potential exploding coordinates issue, which could be hidden by the initialization if the learning rate is too small.
-- If you reuse a module multiple times in the forward pass, then `mup.get_coord_data` will only record the statistics from the last usage. In this case, for testing purposes, one can wrap different usages with `nn.Identity` modules of different names to distinguish them.
+- If your machine GPUs memory not >40G you can archieve large batch size by setting this Flags `--accumulate_grad_batches #` this number makes batch size will accumulate # times gradients in the forward path, then backward update the average gradients.
+
 
 ### Wider is Always Better
 
