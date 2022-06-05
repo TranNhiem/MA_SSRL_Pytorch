@@ -14,7 +14,9 @@ This repo is official Pytorch-Lightning implementation MASSRL.
 [Blog Post]("Coming Soon")
 
 ```
-[*MASSRL*] leverages multi-Augmentation strategy allow us to increase the quantity and diversity of data. As the result show that require less epochs iteration training can archieve significant better performance compare to baseline for self-supervised pre-training stage.
+MASSRL leverages the multi-Augmentation strategy to allow us to increase the quantity and diversity of data.
+The result shows that requiring fewer epochs of iteration training can perform significantly better than the baseline
+like (BYOL or SimCLR) for the self-supervised pre-training stage. 
 ```
 <p align="center">
   <img src="images/pre-training_stage.png" width="380">
@@ -23,25 +25,23 @@ This repo is official Pytorch-Lightning implementation MASSRL.
 <font size="0.5"> *Figure: Comparsion effective of the learned representation during self-supervised pre-training stage between BYOL (Grill, Strub et al. 2020) & MA-SSRL (ours) use the same ResNet-50 backbone (IN) in Top-1 accuracy(%).*</font> 
 
 
-This repo contains the source code for the `mup` package, our tool that makes the implementation of μP in Pytorch models effortless and less error-prone.
+This repo contains the source code for the `MASSRL`, our tool that makes the implementation of multi-Augmentation Strategies in Pytorch models effortless and less error-prone.
 
 ## Table of Contents
 
-
   - [Installation](#installation)
-    - [Install From Source](#install-from-source)
-  - [Basic Usage](#basic-usage)
-  - [How `mup` Works Under the Hood](#how-mup-works-under-the-hood)
-  - [Current Limitations](#current-limitations)
-  - [Checking Correctness of Parametrization](#checking-correctness-of-parametrization)
-    - [Coord Check](#coord-check)
-    - [Making Your Own Coord Check Plots](#making-your-own-coord-check-plots)
-    - [Wider is Always Better](#wider-is-always-better)
+  - [Visualization `MASSRL` Multi-Augmentation Strategies ](#Different-Multi-Augmentation-properties)
+  - [Configure Self-Supervised Pretraining](#Setup-self-supervised-pretraining)
+    - [Dataset](#Natural Image Dataset)
+    - [Hyperamters Setting](#Important-Hyperparameter-Setting)
+    - [Choosing_augmentation Strategies](#Number of Augmentation Strategies)
+    - [Single or Multi GPUs](#Single-Multi-GPUS)
   - [Examples](#examples)
-  - [Running Tests](#running-tests)
-  - [The Basic Math](#the-basic-math)
+  - [Downstream Tasks](#running-tests)
+     - [Image Classification Tasks](#Natural Image Classification)
+     - [Other Vision Tasks](#Object Detection, Segmentation)
+  - [Current Limitations](#current-limitations)
   - [Contributing](#contributing)
-  - [Trademarks](#trademarks)
 
 <a target="[_parent](https://colab.research.google.com/drive/1fquGOr_psJfDXxOmdFVkfrbedGfi1t-X?usp=sharing)"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 Visualization Multi-Augmentation Strategies on Google-Colab Notebook: https://colab.research.google.com/drive/1fquGOr_psJfDXxOmdFVkfrbedGfi1t-X?usp=sharing 
