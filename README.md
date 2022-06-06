@@ -116,7 +116,7 @@ if Using different Neural Net archiectures you can consider modify the code in t
 **Note:** MLP Layer-Dim, and Batch_size are the configuration in Self-supervised pre-trained stage.
 
 | Method       | Backbone | Epochs |  MLP Layer-Dim | batch_size |Acc@1 | Acc@5 | Checkpoint |
-|--------------|:--------:|:------:|:----:|:--------------:|:--------------:|:----------:|
+|--------------|:--------:|:------:|:----:|:--------------:|:--------------:|:----------:|:----------:|
 | MASSRL  | ResNet50 |  300  |  2-512 | 2048 |  73.8    |  91.5    | [:link:](https://drive.google.com/file/d/17-_DkQjc8YKosXGPs19DOukcl-IAuzFO/view?usp=sharing) |
 | MASSRL  | ResNet50 |  300  |  2-256 | 2048 |   73.46   |  91.3     | [:link:](https://drive.google.com/file/d/1woSkTArv1z10smrxf-3E9DrZbX6FOoQ4/view?usp=sharing) |
 | BYOL    | ResNet50 |  100  | 2-512  | 4096 |     61.0   |  84.4      | [:link:](https://drive.google.com/file/d/14CbrNhIrhMf-TRHOBQ9Xfds1fWPsh5Qz/view?usp=sharing) |
@@ -136,19 +136,19 @@ if Using different Neural Net archiectures you can consider modify the code in t
 
 ### ImageNet 1K Semi-Supervised Evaluation on Pre-trained model
 
+<p align="center">
+  <img src="images/Semi-supervised_learning.png" width="580">
+</p>
+
+<font size="0.5"> *Figure: Comparsion effective of the learned representation during self-supervised pre-training stage between BYOL (Grill, Strub et al. 2020) & MA-SSRL (ours) use the same ResNet-50 backbone (IN) in Top-1 & Top-5 accuracy(%).*</font> 
+
 ### Image Classfication Tasks
+Update soon
 
 ### Other Vision Tasks (Object Detection - Segmentation)
-
+Update soon
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details,
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
+This project welcomes contributions and suggestions.  
 
