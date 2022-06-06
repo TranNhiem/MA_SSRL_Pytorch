@@ -40,7 +40,6 @@ This repo contains the source code for the `MASSRL`, our tool that makes the imp
   - [Downstream Tasks](#running-tests)
      - [Image Classification Tasks](#Natural-Image-Classification)
      - [Other Vision Tasks](#Object-Detection-Segmentation)
-  - [Current Limitations](#current-limitations)
   - [Contributing](#contributing)
 
 
@@ -82,6 +81,7 @@ For pretraining the backbone, follow one of the many bash files in `bash_files/p
 #### Downloading ImageNet-1K dataset (https://www.image-net.org/download.php).
 
 #### Using your own dataset 
+
 Consider dataset folder structure setup for Pytorch `ImageFolder` and `DataLoader`principle
 #### Changing dataset path(your path) in pretraining Flags: 
 
@@ -90,21 +90,28 @@ Consider dataset folder structure setup for Pytorch `ImageFolder` and `DataLoade
     --train_dir ILSVRC2012/train \
     --val_dir ILSVRC2012/val \
     `
-
 ### Hyperparameter Setting 
+You can change 
 
-### Number Augmentation Strategies Implement
+### Number Augmentation Strategies Implementation
+You can select the number of Augmentation you want by setting the Flags
 
 ### Training Single or Multiple GPUs
-
+You can set how many GPUs for training by changing the Flags
+We will Support distributed multi-nodes(machines) traning soon 
 
 ## Pre-trained model 
 
-**Note:** hyperparameters may not be the best, if using your own datasets you can consider batch size and learning rate for your training.
+**Note:** Here is list of the pre-trained weight of the Residual Convolution Neural Nets (ResNets architectures). 
+if Using different Neural Net archiectures you can consider modify the code in this module: 
 
-### ImageNet 1000K Self-supervised pre-training 
+
+
+### ImageNet 1K Self-supervised pre-training 
 
 **Note:** hyperparameters may not be the best, we will be re-running the methods with lower performance eventually.
+
+#### ImageNet 1K Linear Evaluation on Pre-trained model
 
 | Method       | Backbone | Epochs | MLP Dim | Acc@1 | Acc@5 | Checkpoint |
 |--------------|:--------:|:------:|:----:|:--------------:|:--------------:|:----------:|
@@ -114,62 +121,20 @@ Consider dataset folder structure setup for Pytorch `ImageFolder` and `DataLoade
 | BYOL         | ResNet50 |  300  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
 | SimCRL         | ResNet50 |  200  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
 
+
 #### Tips for pre-training 
 
 - Use a large init learning rate {0.3, 0.4} for `short training epochs`. This would archieve better performance, which could be hidden by the initialization if the learning rate is too small.Use a small init learning rate for Longer training epochs should use value around 0.2.
 
 - If your machine GPUs memory not >40G you can archieve large batch size by setting this Flags `--accumulate_grad_batches #` this number makes batch size will accumulate # times gradients in the forward path, then backward update the average gradients.
 
+- if using your own datasets you can consider batch size and learning rate for your training.
 
-### Wider is Always Better
+## Downstream Tasks
 
-![](figures/widerbetter.png)
+### ImageNet 1K Semi-Supervised Evaluation on Pre-trained model
 
-Another sign that μP has not been implemented correctly is if going wider does worse (on training loss) after some width, at some point during training.
-The figure above illustrates this in a collection of training curves: (left) the correct implementation should always see performance improve with width, at any point in training; (middle) if you used standard parametrization (SP), sometimes you may see performance improve with width up to some point and then suddenly it becomes worse with wider models; (right) or you may immediately see worsening performance even for narrow models.
-
-## Examples
-See the `MLP`, `Transformer`, and `ResNet` folders inside `examples/` as well as the tests in `mup/test` for examples.
-People familiar with [Huggingface Transformers](https://github.com/huggingface/transformers) may also find the `examples/mutransformers` submodule instructive (obtained via `git submodule update --init`), which is also available standalone at [https://github.com/microsoft/mutransformers](https://github.com/microsoft/mutransformers).
-
-## Current Limitations
-
-- `set_base_shapes(model, ...)` assumes that `model` has just been randomly initialized in the standard way and rescales its parameters using the base shape information so the model is in μP.
-- If you want data parallelism, please use `torch.nn.parallel.DistributedDataParallel` instead of `torch.nn.DataParallel`. This is because the latter removes the 
-
-
-## Native Integration With Huggingface
-
-Frustrated that your [Huggingface Transformer](https://github.com/huggingface/transformers) breaks when you scale up? Want to tune hyperparameters for your large mult-GPU [Huggingface Transformer](https://github.com/huggingface/transformers) on a single GPU, right out the box? If so, please upvote [this github issue](https://github.com/huggingface/transformers/issues/16157)!
-
-
-## Running Tests
-To run tests, do
-```bash
-python -m mup.test
-```
-
-## The Basic Math
-
-μP is designed so as to satisfy the following desiderata:
-
-> At any time during training
-> 1. Every (pre)activation vector in a network should have Θ(1)-sized coordinates
-> 2. Neural network output should be O(1).
-> 3. All parameters should be updated as much as possible (in terms of scaling in width) without leading to divergence
-
-It turns out these desiderata uniquely single out μP.
-To derive μP from them, one needs to carefully consider how the *coordinate size* of a vector Av, resulting from a square matrix A multiplying vector v, depends on those of A and v, when A and v are "correlated".
-Those of type 1 cover things like weight gradients; those of type 2 cover things like weight initialization.
-Then, if A and v both have entry size Θ(1) and they are correlated in ways that arise naturally during training, then we have the following table.
-
-|                  | outer product A (type 1) | iid A  (type 2)    |
-|------------------|--------------------------|--------------------|
-| Entry size of Av | Θ(n)                     | Θ(sqrt(n))         |
-
-Given this table, one can then trace the forward and backward computation of a network to derive μP straightforwardly.
-
-See [our blog post](https://www.microsoft.com/en-us/research/blog/%C2%B5transfer-a-technique-for-hyperparameter-tuning-of-enormous-neural-networks/) for a gentle primer and [our paper](https://arxiv.org/abs/2203.03466) for details.
+### Other Vision Tasks (Object Detection - Segmentation)
 
 
 ## Contributing
