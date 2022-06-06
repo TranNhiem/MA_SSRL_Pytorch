@@ -134,6 +134,8 @@ if Using different Neural Net archiectures you can consider modify the code in t
 
 ### ImageNet 1K Semi-Supervised Evaluation on Pre-trained model
 
+### Image Classfication Tasks
+
 ### Other Vision Tasks (Object Detection - Segmentation)
 
 
