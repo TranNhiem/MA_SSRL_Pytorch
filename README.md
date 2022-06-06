@@ -113,13 +113,15 @@ if Using different Neural Net archiectures you can consider modify the code in t
 
 #### ImageNet 1K Linear Evaluation on Pre-trained model
 
-| Method       | Backbone | Epochs | MLP Dim | Acc@1 | Acc@5 | Checkpoint |
+**Note:** MLP Layer-Dim, and Batch_size are the configuration in Self-supervised pre-trained stage.
+
+| Method       | Backbone | Epochs |  MLP Layer-Dim | batch_size |Acc@1 | Acc@5 | Checkpoint |
 |--------------|:--------:|:------:|:----:|:--------------:|:--------------:|:----------:|
-| MASSRL  | ResNet50 |  300  |  512 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
-| MASSRL  | ResNet50 |  300  |  256 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
-| MASSRL  | ResNet50 |  600  |  256 |      92.10     |    99.73       | [:link:](https://drive.google.com/drive/folders/1L5RAM3lCSViD2zEqLtC-GQKVw6mxtxJ_?usp=sharing) |
-| BYOL         | ResNet50 |  300  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
-| SimCRL         | ResNet50 |  200  |  512 |      92.58     |     99.79      | [:link:](https://drive.google.com/drive/folders/1KxeYAEE7Ev9kdFFhXWkPZhG-ya3_UwGP?usp=sharing) |
+| MASSRL  | ResNet50 |  300  |  2-512 | 2048 |  73.8    |  91.5    | [:link:](https://drive.google.com/file/d/17-_DkQjc8YKosXGPs19DOukcl-IAuzFO/view?usp=sharing) |
+| MASSRL  | ResNet50 |  300  |  2-256 | 2048 |   73.46   |  91.3     | [:link:](https://drive.google.com/file/d/1woSkTArv1z10smrxf-3E9DrZbX6FOoQ4/view?usp=sharing) |
+| BYOL    | ResNet50 |  100  | 2-512  | 4096 |     61.0   |  84.4      | [:link:](https://drive.google.com/file/d/14CbrNhIrhMf-TRHOBQ9Xfds1fWPsh5Qz/view?usp=sharing) |
+| BYOL    | ResNet50 |  300  |  2-256 | 4096 |   72.8     |   91.0    | [:link:](https://drive.google.com/file/d/14BY5mSOo6rjDPyjJfBClUkBNURZsWY14/view?usp=sharing) |
+
 
 
 #### Tips for pre-training 
