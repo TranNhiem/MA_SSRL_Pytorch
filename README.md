@@ -9,7 +9,7 @@
 
 This repo is official Pytorch-Lightning implementation MASSRL.
 
-[MASSRL Paper link](https://arxiv.org/abs/1911.05722)
+[MASSRL Paper link](https://arxiv.org/abs/2205.11772)
 
 [Blog Post]("Coming Soon")
 
