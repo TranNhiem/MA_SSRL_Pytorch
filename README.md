@@ -152,3 +152,14 @@ Update soon
 
 This project welcomes contributions and suggestions.  
 
+##Citation
+
+`
+@inproceedings{tran2022MASSRL,
+  title={MASSRL},
+  author={},
+  booktitle={},
+  pages={},
+  year={2022}
+}
+`
